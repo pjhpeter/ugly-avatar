@@ -1,10 +1,14 @@
 {
   "name": "ugly-face",
   "version": "0.1.0",
-  "private": true,
+  "main": "dist/ugly-avatar.umd.js",
+  "module": "dist/ugly-avatar.common.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name my-vue3-component ./src/index.js"
+    "build": "vue-cli-service build --target lib --name ugly-avatar ./src/index.js"
   },
   "dependencies": {
     "vue": "^3.2.13"
