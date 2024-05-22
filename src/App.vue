@@ -1,13 +1,24 @@
 <template>
-  <FaceGenerator />
+  <img :src="image" alt="">
+  <FaceGenerator @image-change="imageChange"/>
 </template>
 
 <script>
 import FaceGenerator from './views/FaceGenerator.vue'
 
 export default {
-  components: { FaceGenerator },
+  components: {FaceGenerator},
   name: 'App',
+  data() {
+    return {
+      image: ''
+    }
+  },
+  methods: {
+    imageChange(image) {
+      this.image = image
+    }
+  }
 }
 </script>
 

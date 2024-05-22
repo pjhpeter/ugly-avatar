@@ -1,50 +1,50 @@
 <template>
   <div class="container">
     <svg
-      viewBox="-100 -100 200 200"
-      xmlns="http://www.w3.org/2000/svg"
-      width="500"
-      height="500"
-      id="face-svg"
+        viewBox="-100 -100 200 200"
+        xmlns="http://www.w3.org/2000/svg"
+        width="500"
+        height="500"
+        id="face-svg"
     >
       <defs>
         <clipPath id="leftEyeClipPath">
-          <polyline :points="eyeLeftCountour" />
+          <polyline :points="eyeLeftCountour"/>
         </clipPath>
         <clipPath id="rightEyeClipPath">
-          <polyline :points="eyeRightCountour" />
+          <polyline :points="eyeRightCountour"/>
         </clipPath>
 
         <filter id="fuzzy">
           <feTurbulence
-            id="turbulence"
-            baseFrequency="0.05"
-            numOctaves="3"
-            type="noise"
-            result="noise"
+              id="turbulence"
+              baseFrequency="0.05"
+              numOctaves="3"
+              type="noise"
+              result="noise"
           />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2"/>
         </filter>
         <linearGradient id="rainbowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop
-            offset="0%"
-            :style="
+              offset="0%"
+              :style="
               'stop-color: ' +
               hairColors[Math.floor(Math.random() * 10)] +
               ';  stop-opacity: 1'
             "
           />
           <stop
-            :offset="dyeColorOffset"
-            :style="
+              :offset="dyeColorOffset"
+              :style="
               'stop-color: ' +
               hairColors[Math.floor(Math.random() * hairColors.length)] +
               ';  stop-opacity: 1'
             "
           />
           <stop
-            offset="100%"
-            :style="
+              offset="100%"
+              :style="
               'stop-color: ' +
               hairColors[Math.floor(Math.random() * hairColors.length)] +
               ';  stop-opacity: 1'
@@ -55,26 +55,26 @@
       <title>That's an ugly face</title>
       <desc>CREATED BY XUAN TANG, MORE INFO AT TXSTC55.GITHUB.IO</desc>
       <rect
-        x="-100"
-        y="-100"
-        width="100%"
-        height="100%"
-        :fill="
+          x="-100"
+          y="-100"
+          width="100%"
+          height="100%"
+          :fill="
           backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
         "
       />
       <polyline
-        id="faceContour"
-        :points="computedFacePoints"
-        fill="#ffc9a9"
-        stroke="black"
-        :stroke-width="3.0 / faceScale"
-        stroke-linejoin="round"
-        filter="url(#fuzzy)"
+          id="faceContour"
+          :points="computedFacePoints"
+          fill="#ffc9a9"
+          stroke="black"
+          :stroke-width="3.0 / faceScale"
+          stroke-linejoin="round"
+          filter="url(#fuzzy)"
       />
 
       <g
-        :transform="
+          :transform="
           'translate(' +
           (center[0] + distanceBetweenEyes + rightEyeOffsetX) +
           ' ' +
@@ -83,17 +83,17 @@
         "
       >
         <polyline
-          id="rightCountour"
-          :points="eyeRightCountour"
-          fill="white"
-          stroke="white"
-          :stroke-width="0.0 / faceScale"
-          stroke-linejoin="round"
-          filter="url(#fuzzy)"
+            id="rightCountour"
+            :points="eyeRightCountour"
+            fill="white"
+            stroke="white"
+            :stroke-width="0.0 / faceScale"
+            stroke-linejoin="round"
+            filter="url(#fuzzy)"
         />
       </g>
       <g
-        :transform="
+          :transform="
           'translate(' +
           -(center[0] + distanceBetweenEyes + leftEyeOffsetX) +
           ' ' +
@@ -102,17 +102,17 @@
         "
       >
         <polyline
-          id="leftCountour"
-          :points="eyeLeftCountour"
-          fill="white"
-          stroke="white"
-          :stroke-width="0.0 / faceScale"
-          stroke-linejoin="round"
-          filter="url(#fuzzy)"
+            id="leftCountour"
+            :points="eyeLeftCountour"
+            fill="white"
+            stroke="white"
+            :stroke-width="0.0 / faceScale"
+            stroke-linejoin="round"
+            filter="url(#fuzzy)"
         />
       </g>
       <g
-        :transform="
+          :transform="
           'translate(' +
           (center[0] + distanceBetweenEyes + rightEyeOffsetX) +
           ' ' +
@@ -121,40 +121,40 @@
         "
       >
         <polyline
-          id="rightUpper"
-          :points="eyeRightUpper"
-          fill="none"
-          stroke="black"
-          :stroke-width="(this.haventSleptForDays ? 5.0 : 3.0) / faceScale"
-          stroke-linejoin="round"
-          stroke-linecap="round"
-          filter="url(#fuzzy)"
+            id="rightUpper"
+            :points="eyeRightUpper"
+            fill="none"
+            stroke="black"
+            :stroke-width="(this.haventSleptForDays ? 5.0 : 3.0) / faceScale"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            filter="url(#fuzzy)"
         />
         <polyline
-          id="rightLower"
-          :points="eyeRightLower"
-          fill="none"
-          stroke="black"
-          :stroke-width="(this.haventSleptForDays ? 5.0 : 3.0) / faceScale"
-          stroke-linejoin="round"
-          stroke-linecap="round"
-          filter="url(#fuzzy)"
+            id="rightLower"
+            :points="eyeRightLower"
+            fill="none"
+            stroke="black"
+            :stroke-width="(this.haventSleptForDays ? 5.0 : 3.0) / faceScale"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            filter="url(#fuzzy)"
         />
         <circle
-          v-for="i in 10"
-          :key="i"
-          :r="Math.random() * 2 + 3.0"
-          :cx="rightPupilShiftX + Math.random() * 5 - 2.5"
-          :cy="rightPupilShiftY + Math.random() * 5 - 2.5"
-          stroke="black"
-          fill="none"
-          :stroke-width="1.0 + Math.random() * 0.5"
-          filter="url(#fuzzy)"
-          clip-path="url(#rightEyeClipPath)"
+            v-for="i in 10"
+            :key="i"
+            :r="Math.random() * 2 + 3.0"
+            :cx="rightPupilShiftX + Math.random() * 5 - 2.5"
+            :cy="rightPupilShiftY + Math.random() * 5 - 2.5"
+            stroke="black"
+            fill="none"
+            :stroke-width="1.0 + Math.random() * 0.5"
+            filter="url(#fuzzy)"
+            clip-path="url(#rightEyeClipPath)"
         />
       </g>
       <g
-        :transform="
+          :transform="
           'translate(' +
           -(center[0] + distanceBetweenEyes + leftEyeOffsetX) +
           ' ' +
@@ -163,79 +163,79 @@
         "
       >
         <polyline
-          id="leftUpper"
-          :points="eyeLeftUpper"
-          fill="none"
-          stroke="black"
-          :stroke-width="(this.haventSleptForDays ? 5.0 : 3.0) / faceScale"
-          stroke-linejoin="round"
-          filter="url(#fuzzy)"
+            id="leftUpper"
+            :points="eyeLeftUpper"
+            fill="none"
+            stroke="black"
+            :stroke-width="(this.haventSleptForDays ? 5.0 : 3.0) / faceScale"
+            stroke-linejoin="round"
+            filter="url(#fuzzy)"
         />
         <polyline
-          id="leftLower"
-          :points="eyeLeftLower"
-          fill="none"
-          stroke="black"
-          :stroke-width="(this.haventSleptForDays ? 5.0 : 3.0) / faceScale"
-          stroke-linejoin="round"
-          filter="url(#fuzzy)"
+            id="leftLower"
+            :points="eyeLeftLower"
+            fill="none"
+            stroke="black"
+            :stroke-width="(this.haventSleptForDays ? 5.0 : 3.0) / faceScale"
+            stroke-linejoin="round"
+            filter="url(#fuzzy)"
         />
         <circle
-          v-for="i in 10"
-          :key="i"
-          :r="Math.random() * 2 + 3.0"
-          :cx="leftPupilShiftX + Math.random() * 5 - 2.5"
-          :cy="leftPupilShiftY + Math.random() * 5 - 2.5"
-          stroke="black"
-          fill="none"
-          :stroke-width="1.0 + Math.random() * 0.5"
-          filter="url(#fuzzy)"
-          clip-path="url(#leftEyeClipPath)"
+            v-for="i in 10"
+            :key="i"
+            :r="Math.random() * 2 + 3.0"
+            :cx="leftPupilShiftX + Math.random() * 5 - 2.5"
+            :cy="leftPupilShiftY + Math.random() * 5 - 2.5"
+            stroke="black"
+            fill="none"
+            :stroke-width="1.0 + Math.random() * 0.5"
+            filter="url(#fuzzy)"
+            clip-path="url(#leftEyeClipPath)"
         />
       </g>
       <g id="hairs">
         <polyline
-          v-for="(hair, index) in hairs"
-          :key="index"
-          :points="hair"
-          fill="none"
-          :stroke="hairColor"
-          :stroke-width="0.5 + Math.random() * 2.5"
-          stroke-linejoin="round"
-          filter="url(#fuzzy)"
+            v-for="(hair, index) in hairs"
+            :key="index"
+            :points="hair"
+            fill="none"
+            :stroke="hairColor"
+            :stroke-width="0.5 + Math.random() * 2.5"
+            stroke-linejoin="round"
+            filter="url(#fuzzy)"
         />
       </g>
       <g id="pointNose" v-if="Math.random() > 0.5">
         <g id="rightNose">
           <circle
-            v-for="i in 10"
-            :key="i"
-            :r="Math.random() * 2 + 1.0"
-            :cx="rightNoseCenterX + Math.random() * 4 - 2"
-            :cy="rightNoseCenterY + Math.random() * 4 - 2"
-            stroke="black"
-            fill="none"
-            :stroke-width="1.0 + Math.random() * 0.5"
-            filter="url(#fuzzy)"
+              v-for="i in 10"
+              :key="i"
+              :r="Math.random() * 2 + 1.0"
+              :cx="rightNoseCenterX + Math.random() * 4 - 2"
+              :cy="rightNoseCenterY + Math.random() * 4 - 2"
+              stroke="black"
+              fill="none"
+              :stroke-width="1.0 + Math.random() * 0.5"
+              filter="url(#fuzzy)"
           />
         </g>
         <g id="leftNose">
           <circle
-            v-for="i in 10"
-            :key="i"
-            :r="Math.random() * 2 + 1.0"
-            :cx="leftNoseCenterX + Math.random() * 4 - 2"
-            :cy="leftNoseCenterY + Math.random() * 4 - 2"
-            stroke="black"
-            fill="none"
-            :stroke-width="1.0 + Math.random() * 0.5"
-            filter="url(#fuzzy)"
+              v-for="i in 10"
+              :key="i"
+              :r="Math.random() * 2 + 1.0"
+              :cx="leftNoseCenterX + Math.random() * 4 - 2"
+              :cy="leftNoseCenterY + Math.random() * 4 - 2"
+              stroke="black"
+              fill="none"
+              :stroke-width="1.0 + Math.random() * 0.5"
+              filter="url(#fuzzy)"
           />
         </g>
       </g>
       <g id="lineNose" v-else>
         <path
-          :d="
+            :d="
             'M ' +
             leftNoseCenterX +
             ' ' +
@@ -249,26 +249,26 @@
             ' ' +
             -eyeHeightOffset * 0.2
           "
-          fill="none"
-          stroke="black"
-          :stroke-width="2.5 + Math.random() * 1.0"
-          stroke-linejoin="round"
-          filter="url(#fuzzy)"
+            fill="none"
+            stroke="black"
+            :stroke-width="2.5 + Math.random() * 1.0"
+            stroke-linejoin="round"
+            filter="url(#fuzzy)"
         ></path>
       </g>
       <g id="mouth">
         <polyline
-          :points="mouthPoints"
-          fill="rgb(215,127,140)"
-          stroke="black"
-          :stroke-width="2.7 + Math.random() * 0.5"
-          stroke-linejoin="round"
-          filter="url(#fuzzy)"
+            :points="mouthPoints"
+            fill="rgb(215,127,140)"
+            stroke="black"
+            :stroke-width="2.7 + Math.random() * 0.5"
+            stroke-linejoin="round"
+            filter="url(#fuzzy)"
         />
       </g>
     </svg>
-    <button @click="generateFace">ANOTHER</button>
-    <button @click="downloadSVGAsPNG">DOWNLOAD</button>
+    <!--    <button @click="generateFace">ANOTHER</button>-->
+    <!--    <button @click="downloadSVGAsPNG">DOWNLOAD</button>-->
   </div>
 </template>
 
@@ -277,6 +277,7 @@ import * as faceShape from "../utils/face_shape.js";
 import * as eyeShape from "../utils/eye_shape.js";
 import * as hairLines from "../utils/hair_lines.js";
 import * as mouthShape from "../utils/mouth_shape.js";
+import {nextTick} from "vue";
 
 function randomFromInterval(min, max) {
   // min and max included
@@ -285,6 +286,8 @@ function randomFromInterval(min, max) {
 
 export default {
   name: "FaceGenerator",
+  emits: ['imageChange'],
+  expose: ['generateFace'],
   data() {
     return {
       faceScale: 1.8, // face scale
@@ -484,69 +487,69 @@ export default {
       this.eyeRightUpper = right.upper;
       this.eyeRightLower = right.lower;
       this.eyeRightCountour = right.upper
-        .slice(10, 90)
-        .concat(right.lower.slice(10, 90).reverse());
+          .slice(10, 90)
+          .concat(right.lower.slice(10, 90).reverse());
       this.eyeLeftUpper = left.upper;
       this.eyeLeftLower = left.lower;
       this.eyeLeftCountour = left.upper
-        .slice(10, 90)
-        .concat(left.lower.slice(10, 90).reverse());
+          .slice(10, 90)
+          .concat(left.lower.slice(10, 90).reverse());
       this.distanceBetweenEyes = randomFromInterval(
-        this.faceWidth / 4.5,
-        this.faceWidth / 4,
+          this.faceWidth / 4.5,
+          this.faceWidth / 4,
       );
       this.eyeHeightOffset = randomFromInterval(
-        this.faceHeight / 8,
-        this.faceHeight / 6,
+          this.faceHeight / 8,
+          this.faceHeight / 6,
       );
       this.leftEyeOffsetX = randomFromInterval(
-        -this.faceWidth / 20,
-        this.faceWidth / 10,
+          -this.faceWidth / 20,
+          this.faceWidth / 10,
       );
       this.leftEyeOffsetY = randomFromInterval(
-        -this.faceHeight / 50,
-        this.faceHeight / 50,
+          -this.faceHeight / 50,
+          this.faceHeight / 50,
       );
       this.rightEyeOffsetX = randomFromInterval(
-        -this.faceWidth / 20,
-        this.faceWidth / 10,
+          -this.faceWidth / 20,
+          this.faceWidth / 10,
       );
       this.rightEyeOffsetY = randomFromInterval(
-        -this.faceHeight / 50,
-        this.faceHeight / 50,
+          -this.faceHeight / 50,
+          this.faceHeight / 50,
       );
       this.leftEyeCenter = left.center[0];
       this.rightEyeCenter = right.center[0];
       this.leftPupilShiftX = randomFromInterval(
-        -this.faceWidth / 20,
-        this.faceWidth / 20,
+          -this.faceWidth / 20,
+          this.faceWidth / 20,
       );
 
       // now we generate the pupil shifts
       // we first pick a point from the upper eye lid
       let leftInd0 = Math.floor(randomFromInterval(10, left.upper.length - 10));
       let rightInd0 = Math.floor(
-        randomFromInterval(10, right.upper.length - 10),
+          randomFromInterval(10, right.upper.length - 10),
       );
       let leftInd1 = Math.floor(randomFromInterval(10, left.upper.length - 10));
       let rightInd1 = Math.floor(
-        randomFromInterval(10, right.upper.length - 10),
+          randomFromInterval(10, right.upper.length - 10),
       );
       let leftLerp = randomFromInterval(0.2, 0.8);
       let rightLerp = randomFromInterval(0.2, 0.8);
 
       this.leftPupilShiftY =
-        left.upper[leftInd0][1] * leftLerp +
-        left.lower[leftInd1][1] * (1 - leftLerp);
+          left.upper[leftInd0][1] * leftLerp +
+          left.lower[leftInd1][1] * (1 - leftLerp);
       this.rightPupilShiftY =
-        right.upper[rightInd0][1] * rightLerp +
-        right.lower[rightInd1][1] * (1 - rightLerp);
+          right.upper[rightInd0][1] * rightLerp +
+          right.lower[rightInd1][1] * (1 - rightLerp);
       this.leftPupilShiftX =
-        left.upper[leftInd0][0] * leftLerp +
-        left.lower[leftInd1][0] * (1 - leftLerp);
+          left.upper[leftInd0][0] * leftLerp +
+          left.lower[leftInd1][0] * (1 - leftLerp);
       this.rightPupilShiftX =
-        right.upper[rightInd0][0] * rightLerp +
-        right.lower[rightInd1][0] * (1 - rightLerp);
+          right.upper[rightInd0][0] * rightLerp +
+          right.lower[rightInd1][0] * (1 - rightLerp);
 
       var numHairLines = [];
       var numHairMethods = 4;
@@ -556,46 +559,46 @@ export default {
       this.hairs = [];
       if (Math.random() > 0.3) {
         this.hairs = hairLines.generateHairLines0(
-          this.computedFacePoints,
-          numHairLines[0] * 1 + 10,
+            this.computedFacePoints,
+            numHairLines[0] * 1 + 10,
         );
       }
       if (Math.random() > 0.3) {
         this.hairs = this.hairs.concat(
-          hairLines.generateHairLines1(
-            this.computedFacePoints,
-            numHairLines[1] / 1.5 + 10,
-          ),
+            hairLines.generateHairLines1(
+                this.computedFacePoints,
+                numHairLines[1] / 1.5 + 10,
+            ),
         );
       }
       if (Math.random() > 0.5) {
         this.hairs = this.hairs.concat(
-          hairLines.generateHairLines2(
-            this.computedFacePoints,
-            numHairLines[2] * 3 + 10,
-          ),
+            hairLines.generateHairLines2(
+                this.computedFacePoints,
+                numHairLines[2] * 3 + 10,
+            ),
         );
       }
       if (Math.random() > 0.5) {
         this.hairs = this.hairs.concat(
-          hairLines.generateHairLines3(
-            this.computedFacePoints,
-            numHairLines[3] * 3 + 10,
-          ),
+            hairLines.generateHairLines3(
+                this.computedFacePoints,
+                numHairLines[3] * 3 + 10,
+            ),
         );
       }
       this.rightNoseCenterX = randomFromInterval(
-        this.faceWidth / 18,
-        this.faceWidth / 12,
+          this.faceWidth / 18,
+          this.faceWidth / 12,
       );
       this.rightNoseCenterY = randomFromInterval(0, this.faceHeight / 5);
       this.leftNoseCenterX = randomFromInterval(
-        -this.faceWidth / 18,
-        -this.faceWidth / 12,
+          -this.faceWidth / 18,
+          -this.faceWidth / 12,
       );
       this.leftNoseCenterY =
-        this.rightNoseCenterY +
-        randomFromInterval(-this.faceHeight / 30, this.faceHeight / 20);
+          this.rightNoseCenterY +
+          randomFromInterval(-this.faceHeight / 30, this.faceHeight / 20);
       if (Math.random() > 0.1) {
         // use natural hair color
         this.hairColor = this.hairColors[Math.floor(Math.random() * 10)];
@@ -604,26 +607,28 @@ export default {
         this.dyeColorOffset = randomFromInterval(0, 100) + "%";
       }
 
-      var choice = Math.floor(Math.random() * 3);
-      if (choice == 0) {
+      const choice = Math.floor(Math.random() * 3);
+      if (choice === 0) {
         this.mouthPoints = mouthShape.generateMouthShape0(
-          this.computedFacePoints,
-          this.faceHeight,
-          this.faceWidth,
+            this.computedFacePoints,
+            this.faceHeight,
+            this.faceWidth,
         );
-      } else if (choice == 1) {
+      } else if (choice === 1) {
         this.mouthPoints = mouthShape.generateMouthShape1(
-          this.computedFacePoints,
-          this.faceHeight,
-          this.faceWidth,
+            this.computedFacePoints,
+            this.faceHeight,
+            this.faceWidth,
         );
       } else {
         this.mouthPoints = mouthShape.generateMouthShape2(
-          this.computedFacePoints,
-          this.faceHeight,
-          this.faceWidth,
+            this.computedFacePoints,
+            this.faceHeight,
+            this.faceWidth,
         );
       }
+
+      nextTick(() => this.outputImage())
     },
     downloadSVGAsPNG() {
       // download our svg as png
@@ -645,28 +650,39 @@ export default {
         a.dispatchEvent(e);
       };
     },
+    outputImage() {
+      const svg = document.getElementById("face-svg");
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const img = document.createElement("img");
+      const svgSize = svg.getBoundingClientRect();
+      canvas.width = svgSize.width;
+      canvas.height = svgSize.height;
+      img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0);
+        this.$emit('imageChange', canvas.toDataURL("image/png"))
+      };
+    }
   },
   mounted() {
     this.generateFace();
     // add key binding
-    window.addEventListener("keydown", (e) => {
-      if (e.key === " ") {
-        this.generateFace();
-        // this.downloadSVGAsPNG();
-      } else if (e.key === "s") {
-        this.downloadSVGAsPNG();
-      }
-    });
+    // window.addEventListener("keydown", (e) => {
+    //   if (e.key === " ") {
+    //     this.generateFace();
+    //     // this.downloadSVGAsPNG();
+    //   } else if (e.key === "s") {
+    //     this.downloadSVGAsPNG();
+    //   }
+    // });
   },
 };
 </script>
 
 <style scoped>
 .container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: inline-flex;
   /* align-items items in column */
   flex-direction: column;
@@ -675,11 +691,12 @@ export default {
   /* center items vertically */
   justify-content: center;
   background-color: #ffffff;
-  padding: 5px;
 }
+
 svg {
   background-color: #ffffff;
 }
+
 button {
   margin-top: 10px;
   width: 200px;
@@ -700,6 +717,7 @@ button:hover {
   color: white;
   transition: 0.3s;
 }
+
 button:active {
   background: rgb(65, 65, 65);
   box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.75);
