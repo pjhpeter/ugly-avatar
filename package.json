@@ -11,6 +11,7 @@
     "build": "vue-cli-service build --target lib --name ugly-avatar ./src/index.js"
   },
   "dependencies": {
+    "html2canvas": "^1.4.1",
     "vue": "^3.2.13"
   },
   "devDependencies": {

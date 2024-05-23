@@ -1,9 +1,8 @@
 <template>
-  <div class="container">
+  <div id="ugly-face-container" class="container">
     <svg
         viewBox="-100 -100 200 200"
         xmlns="http://www.w3.org/2000/svg"
-        id="face-svg"
     >
       <defs>
         <clipPath id="leftEyeClipPath">
@@ -634,45 +633,37 @@ export default {
 
       nextTick(() => this.outputImage())
     },
-    downloadSVGAsPNG() {
-      // download our svg as png
-      const svg = document.getElementById("face-svg");
-      const svgData = new XMLSerializer().serializeToString(svg);
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      const img = document.createElement("img");
-      const svgSize = svg.getBoundingClientRect();
-      canvas.width = svgSize.width;
-      canvas.height = svgSize.height;
-      img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
-      img.onload = function () {
-        ctx.drawImage(img, 0, 0);
-        const a = document.createElement("a");
-        const e = new MouseEvent("click");
-        a.download = "face.png";
-        a.href = canvas.toDataURL("image/png");
-        a.dispatchEvent(e);
-      };
-    },
-    outputImage() {
-      const svg = document.getElementById("face-svg");
-      const svgData = new XMLSerializer().serializeToString(svg);
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      const img = document.createElement("img");
-      const svgSize = svg.getBoundingClientRect();
-      console.log(this.size)
-      const targetSize = this.size; // 目标尺寸
-      const scale = targetSize / svgSize.width; // 计算缩放比例
+    async outputImage() {
+      const avatarEle = document.getElementById('ugly-face-container');
 
-      canvas.width = targetSize;
-      canvas.height = svgSize.height * scale;
+      if (avatarEle) {
+        const html2canvas = (await import('html2canvas')).default;
 
-      img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
-      img.onload = () => {
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        this.$emit('imageChange', canvas.toDataURL("image/png"));
-      };
+        // 设置高分辨率 scale，例如 3
+        const highResScale = 3;
+        const canvas = await html2canvas(avatarEle, {
+          backgroundColor: null,
+          scale: highResScale // 使用高分辨率 scale
+        });
+
+        // 计算缩放比例，使最终宽度为 180px
+        const targetWidth = this.size;
+        const originalWidth = canvas.width;
+        const originalHeight = canvas.height;
+        const scale = targetWidth / originalWidth;
+        const targetHeight = originalHeight * scale;
+
+        // 创建新的 canvas 并进行缩放
+        const scaledCanvas = document.createElement('canvas');
+        scaledCanvas.width = targetWidth;
+        scaledCanvas.height = targetHeight;
+        const ctx = scaledCanvas.getContext('2d');
+
+        // 使用高分辨率绘制图像
+        ctx.drawImage(canvas, 0, 0, originalWidth, originalHeight, 0, 0, targetWidth, targetHeight);
+
+        this.$emit('imageChange', scaledCanvas.toDataURL());
+      }
     }
   },
   mounted() {
@@ -700,6 +691,8 @@ export default {
   /* center items vertically */
   justify-content: center;
   background-color: #ffffff;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 svg {
