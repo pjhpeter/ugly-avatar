@@ -1,6 +1,6 @@
 <template>
-  <img :src="image" alt="">
-  <FaceGenerator @image-change="imageChange"/>
+  <img style="width: 180px" :src="image" alt="">
+  <FaceGenerator ref="faceGeneratorRef" style="width: 50px; height: 50px" @image-change="imageChange" @click="random" />
 </template>
 
 <script>
@@ -15,6 +15,9 @@ export default {
     }
   },
   methods: {
+    random() {
+      this.$refs.faceGeneratorRef.generateFace()
+    },
     imageChange(image) {
       this.image = image
     }

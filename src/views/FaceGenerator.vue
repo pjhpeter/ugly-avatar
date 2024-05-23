@@ -286,6 +286,12 @@ export default {
   name: "FaceGenerator",
   emits: ['imageChange'],
   expose: ['generateFace'],
+  props: {
+    size: {
+      type: Number,
+      default: 180
+    }
+  },
   data() {
     return {
       faceScale: 1.8, // face scale
@@ -655,12 +661,17 @@ export default {
       const ctx = canvas.getContext("2d");
       const img = document.createElement("img");
       const svgSize = svg.getBoundingClientRect();
-      canvas.width = svgSize.width;
-      canvas.height = svgSize.height;
+      console.log(this.size)
+      const targetSize = this.size; // 目标尺寸
+      const scale = targetSize / svgSize.width; // 计算缩放比例
+
+      canvas.width = targetSize;
+      canvas.height = svgSize.height * scale;
+
       img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
       img.onload = () => {
-        ctx.drawImage(img, 0, 0);
-        this.$emit('imageChange', canvas.toDataURL("image/png"))
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        this.$emit('imageChange', canvas.toDataURL("image/png"));
       };
     }
   },
